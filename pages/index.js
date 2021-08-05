@@ -5,8 +5,7 @@ import styles from '../styles/Home.module.css'
 import Card from '../components/Card'
 import AddCard from '../components/AddCard'
 
-import apiUrl from "next-api-url";
-// import { server } from '../config';
+import { server } from '../config';
 
 export default function Home({data}) {
   const [user, setUser] = useState(data)
