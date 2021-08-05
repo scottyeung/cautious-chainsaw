@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import Card from '../components/Card'
-import AddCard from '../components/AddCard'
+import Card from 'components/Card'
+import AddCard from 'components/AddCard'
 
 import { server } from '../config';
 
