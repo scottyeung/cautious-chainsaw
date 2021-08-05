@@ -4,7 +4,9 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import Card from '../components/Card'
 import AddCard from '../components/AddCard'
-import { server } from '../config';
+
+import apiUrl from "next-api-url";
+// import { server } from '../config';
 
 export default function Home({data}) {
   const [user, setUser] = useState(data)
@@ -70,7 +72,7 @@ export default function Home({data}) {
   )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps(context) {
   const res = await fetch(`${server}/api/contacts`)
   const data = await res.json()
 
