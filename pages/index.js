@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
+import { ToastContainer, toast } from 'react-toastify';
 import styles from '../styles/Home.module.css'
 import Card from 'components/Card'
 import AddCard from 'components/AddCard'
@@ -16,18 +17,20 @@ export default function Home({data}) {
     if(sort){
       const newUsers = user.sort((a, b) => a.first_name.localeCompare(b.first_name));
       setUser(newUsers);
-      setSort(sort => !sort);  
+      setSort(sort => !sort);
     }
   }, [sort, user])
   
   const handleRemoveItem = (first_name, last_name) => {
     setUser(user.filter(item => `${item.first_name} ${item.last_name}` !== `${first_name} ${last_name}`))
+    toast("User successfully deleted")
   }
 
   const handleUpdateItem = (item, i) => {
     let newItems = {...user};
     newItems[i] = item;
     setUser(Object.values(newItems))
+    toast("User successfully updated")
   }
 
   return (
@@ -66,7 +69,7 @@ export default function Home({data}) {
       </div>
     </div>
       
-
+    <ToastContainer />
     </div>
   )
 }
