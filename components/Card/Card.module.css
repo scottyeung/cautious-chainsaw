@@ -1,0 +1,35 @@
+.card {
+	border: 1px #000000 solid;
+	padding: 20px;
+	width: 45%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.card__info {
+	display: flex;
+	align-items: center;
+}
+
+.card__info_img {
+	border-radius: 9999px;
+	width: 3rem;
+	height: 3rem;
+	max-width: 100%;
+}
+
+.card__info_name {
+	margin-left: 1rem;
+}
+
+.card__button {
+	display: flex;
+	flex-direction: column;
+}
+
+
+@media (max-width: 600px) {
+	.card {
+		width: 100%;
+	}
+}
