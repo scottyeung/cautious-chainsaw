@@ -1,7 +1,8 @@
 import styles from './Card.module.css'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
-import Image from 'next/image'
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Card({person, index, handleRemoveItem, handleUpdateItem}) {
 	const [edit, setEdit] = useState(false)
