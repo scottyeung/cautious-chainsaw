@@ -6,7 +6,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 export default function Card({person, index, handleRemoveItem, handleUpdateItem}) {
 	const [edit, setEdit] = useState(false)
-	const {register, handleSubmit} = useForm();
+	const {register, handleSubmit, formState:{ errors }} = useForm();
 
 	const pushState = (item) => {
     handleUpdateItem(item, index)
@@ -43,29 +43,36 @@ export default function Card({person, index, handleRemoveItem, handleUpdateItem}
 	) : (
 		<form onSubmit={handleSubmit(pushState)} className={styles.card__info_name}>
 			<div>
-				<label>
-					First Name
-					<input {...register("first_name")} />
-				</label>
-			</div>
-			<div>
-				<label>
-					Last Name
-					<input {...register("last_name")} />
-				</label>
-			</div>
-			<div>
-				<label>
-					Job
-					<input {...register("job")} />
-				</label>
-			</div>
-			<div>
-				<label>
-					Description
-					<input {...register("description")} />
-				</label>
-			</div>
+            <label>
+              First Name
+              <input {...register("first_name", { required: "Please enter your first name." })} />
+            </label>
+            {errors.first_name?.type === 'required' && "First name is required"}
+
+          </div>
+          <div>
+            <label>
+              Last Name
+              <input {...register("last_name", { required: "Please enter your last name." })} />
+            </label>
+            {errors.last_name?.type === 'required' && "Last name is required"}
+
+          </div>
+          <div>
+            <label>
+              Job
+              <input {...register("job", { required: "Please enter your job." })} />
+            </label>
+            {errors.job?.type === 'required' && "Job is required"}
+
+          </div>
+          <div>
+            <label>
+              Description
+              <input {...register("description", { required: "Please enter your description." })} />
+            </label>
+            {errors.description?.type === 'required' && "Description is required"}
+          </div>
 			<div className={styles.card__button}>
 				<button type="submit">Submit</button>
 			</div>
