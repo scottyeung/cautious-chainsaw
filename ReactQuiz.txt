@@ -1,0 +1,6 @@
+Code 1. 
+
+Given the animals array can be a very long one, and the function requires to log the value only of the element. 
+Code 1 can achieve the exact same effect via event bubbling and get the DOM value easily. 
+
+However, Code 2 binds an event handler for each element created which will eventually hog the resources.
