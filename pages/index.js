@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Head from 'next/head'
 import Image from 'next/image'
 import { ToastContainer, toast } from 'react-toastify';
@@ -6,20 +6,19 @@ import styles from '../styles/Home.module.css'
 import Card from 'components/Card'
 import AddCard from 'components/AddCard'
 
-import { server } from '../config';
+import {ascend, descend, prop, sort} from "ramda";
 
 export default function Home({data}) {
   const [user, setUser] = useState(data)
-  const [sort, setSort] = useState(false)
+  const [isDescend, setDescend] = useState(false)
   const [newUser, setNewUser] = useState(null)
 
-  useEffect(() => {
-    if(sort){
-      const newUsers = user.sort((a, b) => a.first_name.localeCompare(b.first_name));
-      setUser(newUsers);
-      setSort(sort => !sort);
-    }
-  }, [sort, user])
+  const handleSort = () => {
+    setDescend(prev => !prev)
+    const direction = isDescend ? ascend : descend
+    const newUsers = sort(direction(prop('first_name')))
+    setUser(newUsers);
+  }
   
   const handleRemoveItem = (first_name, last_name) => {
     setUser(user.filter(item => `${item.first_name} ${item.last_name}` !== `${first_name} ${last_name}`))
@@ -53,7 +52,7 @@ export default function Home({data}) {
         <h1>Contacts</h1>
       </div>
 
-      <div className={styles.contact_title_icon} onClick={() => setSort(true)}>
+      <div className={styles.contact_title_icon} onClick={() => handleSort()}>
           <Image src="/sort.svg" height={30} width={30} alt="Sort icon" />
       </div>
 
@@ -75,8 +74,8 @@ export default function Home({data}) {
 }
 
 export async function getServerSideProps(context) {
-  const res = await fetch(`${server}/api/contacts`)
-  const data = await res.json()
+  const res = await fetch(`https://taroko-contacts-server.herokuapp.com/api/contacts`)
+  const { data } = await res.json()
 
   if (!data) {
     return {
