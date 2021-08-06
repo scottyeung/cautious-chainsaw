@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-toastify';
 
 export default function AddCard({user, setUser, setNewUser}) {
-  const {register, handleSubmit} = useForm();
+  const {register, handleSubmit, formState: { errors }} = useForm();
 
   // const newItem = {
   //   first_name: 'Jerk',
@@ -31,26 +31,33 @@ export default function AddCard({user, setUser, setNewUser}) {
           <div>
             <label>
               First Name
-              <input {...register("first_name")} />
+              <input {...register("first_name", { required: "Please enter your first name." })} />
             </label>
+            {errors.first_name?.type === 'required' && "First name is required"}
+
           </div>
           <div>
             <label>
               Last Name
-              <input {...register("last_name")} />
+              <input {...register("last_name", { required: "Please enter your last name." })} />
             </label>
+            {errors.last_name?.type === 'required' && "Last name is required"}
+
           </div>
           <div>
             <label>
               Job
-              <input {...register("job")} />
+              <input {...register("job", { required: "Please enter your job." })} />
             </label>
+            {errors.job?.type === 'required' && "Job is required"}
+
           </div>
           <div>
             <label>
               Description
-              <input {...register("description")} />
+              <input {...register("description", { required: "Please enter your description." })} />
             </label>
+            {errors.description?.type === 'required' && "Description is required"}
           </div>
           <div className={styles.card__button}>
             <button type="submit">Create</button>
